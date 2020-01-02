@@ -27,7 +27,6 @@
 
   const minedDateColumn = 'B';
   const minedAmountColumn = 'F';
-  const minedSheetWriteColumn = 'L'; // Where the value of the mined amount for each row will be written.
 
   const priceStartRowIndex = 1404; // End row is + the number of days in your year.
   const pricesColumn = 'B';
