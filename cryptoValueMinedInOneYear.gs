@@ -11,10 +11,12 @@
  * Usage:
  *
  *   a) Make a backup of  your spreadsheet before using this!  Not responsible for any loss of data.
- *   b) Enter the manual config data in the section thus marked below, in the code.
- *   c) At the time of writing, you'll need to enable Advanced Google Services for
+ *   b) Note that the code expects dates in the spreadsheet tab with the mined data to be in the format,
+ *      `yyyy-mm-dd` or `yyyy-mm-ddT...*`.
+ *   c) Enter the manual config data in the section thus marked below, in the code.
+ *   d) At the time of writing, you'll need to enable Advanced Google Services for
  *      the dependencies, such as `Sheets`, to be loaded, as described at https://stackoverflow.com/a/47309054/566260
- *   d) Optionally, deploy via a Manifest: The i.d.  of Version 1.0.0 is:
+ *   e) Optionally, deploy via a Manifest: The i.d.  of Version 1.0.0 is:
  *        AKfycbyNngEuUgLF6yCsaLNvlSosR84dhjCGGrB-0SYUCJdqEoyNA9fFG2W47POzbyi84b4 .
  */
 (function cryptoValueMinedInOneYear() {
