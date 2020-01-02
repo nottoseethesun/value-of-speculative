@@ -11,15 +11,16 @@
  * Usage:
  *
  *   a) Make a backup of  your spreadsheet before using this!  Not responsible for any loss of data.
- *   b) Note that the code expects dates in the spreadsheet tab with the mined data to be in the format,
+ *   b) Not responsible for incorrect results or loss or damage from those.
+ *   c) Note that the code expects dates in the spreadsheet tab with the mined data to be in the format,
  *      `yyyy-mm-dd` or `yyyy-mm-ddT...*`.
- *   c) Enter the manual config data in the section thus marked below, in the code.
- *   d) At the time of writing, you'll need to enable Advanced Google Services for
+ *   d) Enter the manual config data in the section thus marked below, in the code.
+ *   e) At the time of writing, you'll need to enable Advanced Google Services for
  *      the dependencies, such as `Sheets`, to be loaded, as described at https://stackoverflow.com/a/47309054/566260
- *   e) Optionally, deploy via a Manifest: The i.d.  of Version 1.1.0 is:
+ *   f) Optionally, deploy via a Manifest: The i.d.  of Version 1.1.0 is:
  *        AKfycbwXfr83gRL_rdXfQ7mioHiF41HLEBDRXgC45zdFEoKSZCQXVIhtDxrPtXGjVKyhpo4 .
  */
-(function cryptoValueMinedInOneYear() {
+function cryptoValueMinedInOneYear() {
   // - - - Start: Manual Config Data Section.
   // You'll  need to manually fill in the various id's, columns, and ranges for the spreadsheet tabs:
   const year = 2019;
@@ -158,4 +159,4 @@
     SpreadsheetApp.getUi().showModalDialog(html, RESULTS_MSG);
   }
 
-})();
+}
