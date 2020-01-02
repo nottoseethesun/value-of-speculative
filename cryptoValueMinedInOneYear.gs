@@ -16,8 +16,8 @@
  *   c) Enter the manual config data in the section thus marked below, in the code.
  *   d) At the time of writing, you'll need to enable Advanced Google Services for
  *      the dependencies, such as `Sheets`, to be loaded, as described at https://stackoverflow.com/a/47309054/566260
- *   e) Optionally, deploy via a Manifest: The i.d.  of Version 1.0.0 is:
- *        AKfycbyNngEuUgLF6yCsaLNvlSosR84dhjCGGrB-0SYUCJdqEoyNA9fFG2W47POzbyi84b4 .
+ *   e) Optionally, deploy via a Manifest: The i.d.  of Version 1.1.0 is:
+ *        AKfycbwXfr83gRL_rdXfQ7mioHiF41HLEBDRXgC45zdFEoKSZCQXVIhtDxrPtXGjVKyhpo4 .
  */
 (function cryptoValueMinedInOneYear() {
   // - - - Start: Manual Config Data Section.
@@ -37,9 +37,13 @@
   const miningEndRowIndex = 463;
   // - - - End: Manual Config Data Section.
 
+  const RESULTS_MSG = 'Total Value Mined';
+  const alertWidth = 400;
+  const alertHeight = 400;
+
   // Now start the execution:
   const totalValueMined = getTotalValueMined();
-  console.log(totalValueMined);
+  displayResult(totalValueMined);
 
   //  - - - Supporting Functions:
 
@@ -147,6 +151,11 @@
       return COMMON_YEAR_DAYS;
     }
     return LEAP_YEAR_DAYS;
+  }
+
+  function displayResult(result) {
+    const html = HtmlService.createHtmlOutput('<h2>' + result + '</h2>');
+    SpreadsheetApp.getUi().showModalDialog(html, RESULTS_MSG);
   }
 
 })();
