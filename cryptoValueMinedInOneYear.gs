@@ -18,7 +18,7 @@
  *   e) At the time of writing, you'll need to enable Advanced Google Services for
  *      the dependencies, such as `Sheets`, to be loaded, as described at https://stackoverflow.com/a/47309054/566260
  *   f) Optionally, deploy via a Manifest: The i.d.  of Version 1.1.0 is:
- *        AKfycbwXfr83gRL_rdXfQ7mioHiF41HLEBDRXgC45zdFEoKSZCQXVIhtDxrPtXGjVKyhpo4 .
+ *        AKfycbxq7fjUculu0n74QI4tsyDWPztbIjhE3s7_kDPDftFvkc-WU94BQfrJPgCbZo8hovk .
  */
 function cryptoValueMinedInOneYear() {
   // - - - Start: Manual Config Data Section.
@@ -36,6 +36,10 @@ function cryptoValueMinedInOneYear() {
 
   const miningStartRowIndex = 2;
   const miningEndRowIndex = 463;
+
+  const transactionTypeColumn = 'C';
+  // Set this to the value you need: Otherwise, ordinary transactions could be counted:
+  const acceptableTransactionTypes = /^(MINED \- POR|MINED \- POS)$/;
   // - - - End: Manual Config Data Section.
 
   const RESULTS_MSG = 'Total Value Mined';
@@ -61,20 +65,27 @@ function cryptoValueMinedInOneYear() {
   function getMiningRecords() {
     const minedDates = getMinedDates();
     const minedAmounts = getMinedAmounts();
+    const transactionTypes = getTransactionTypes();
     const prices = getPrices();
-    const records = minedDates.map(function(date, index) {
+    const records = minedDates.reduce(function(acc, date, index) {
+      const transactionType = transactionTypes[index];
+      if (!acceptableTransactionTypes.test(transactionType)) {
+        return acc;
+      }
       const dayNumber = getDayOfYear(date);
       const price = prices[dayNumber];
       const minedAmount = minedAmounts[index];
       const minedValue = price * minedAmount;
-      return {
+      const record = {
         minedDate: date,
         dayNumber: dayNumber,
         price: price,
         minedAmount: minedAmount,
         minedValue: minedValue,
       };
-    });
+      acc.push(record);
+      return acc;
+    }, []);
 
     return records;
   }
@@ -108,6 +119,15 @@ function cryptoValueMinedInOneYear() {
     });
 
     return amounts;
+  }
+
+  function getTransactionTypes() {
+    const transactionTypesValue = Sheets.Spreadsheets.Values.get(spreadSheetId, getMinedRange(transactionTypeColumn));
+    const transactionTypes = transactionTypesValue.values.map(function (transactionType) {
+      return transactionType[0];
+   });
+
+    return transactionTypes;
   }
 
   function getMinedRange(column) {
